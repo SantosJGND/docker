@@ -51,11 +51,11 @@ RUN /opt/venv/bin/pip install --default-timeout=100 future
 COPY taxdump.tar.gz /opt/
 
 WORKDIR /insaflu_web
-ADD https://api.github.com/repos/INSaFLU/TELEVIR/git/refs/heads/main version.json
-RUN wget --quiet https://github.com/INSaFLU/TELEVIR/archive/main.zip -O televir.zip && \
+ADD https://api.github.com/repos/SantosJGND/TELEVIR/git/refs/heads/expand_organisms version.json
+RUN wget --quiet https://github.com/SantosJGND/TELEVIR/archive/expand_organisms.zip -O televir.zip && \
     unzip -q televir.zip && \
     rm televir.zip && \
-    mv TELEVIR-main TELEVIR && \
+    mv TELEVIR-expand_organisms TELEVIR && \
     chown -R ${APP_USER}:${APP_USER} TELEVIR
 
 
