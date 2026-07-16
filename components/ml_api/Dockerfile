@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN apt-get update && \
-    apt-get install -y git curl && \
+    apt-get install -y git && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone --branch main https://github.com/SantosJGND/MetaCluster.git && \

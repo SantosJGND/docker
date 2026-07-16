@@ -86,15 +86,6 @@ def _interpolate_recall_at_cutoff(cutoff, raw_recalls, n_divisions):
     return float(raw_recalls[-1])
 
 
-_GENUS_ALIASES = {"genus", "g", "genera"}
-
-
-def _composite_key(tax_level: str, category: str, variant: str) -> str:
-    if tax_level in _GENUS_ALIASES:
-        tax_level = "genus"
-    return f"{tax_level}_{category}_{variant}"
-
-
 @app.post("/predict_recall_cutoff_from_table", response_model=RecallCutoffResult)
 def predict_recall_cutoff_from_table(request: RecallCutoffFromTableRequest, response: Response):
     start = time.time()
@@ -118,6 +109,9 @@ def predict_recall_cutoff_from_table(request: RecallCutoffFromTableRequest, resp
                    f"but it is not present in input data. "
                    f"Available columns: {list(df.columns)}",
         )
+
+    df[tax_level] = df[tax_level].fillna('unclassified')
+    df['best_match_is_best'] = True
 
     pipeline = bundle.get("pipeline") or bundle.get("model")
     if pipeline is None:
@@ -167,7 +161,7 @@ def predict_recall_cutoff_from_table(request: RecallCutoffFromTableRequest, resp
 @app.post("/predict_composition_stop_traversal", response_model=CompositionStopTraversalResult)
 def predict_composition_stop_traversal(request: CompositionStopTraversalRequest, response: Response):
     start = time.time()
-    variant_key = _composite_key(request.tax_level, "composition", request.model)
+    variant_key = request.model
     try:
         bundle, version_info = get_cached_model(variant_key)
     except RuntimeError as e:

@@ -4,7 +4,9 @@ from pydantic import BaseModel, Field
 class RecallCutoffFromTableRow(BaseModel):
     taxid: int
     total_uniq_reads: float
-    best_match_is_best: bool = False
+    order: str | None = None
+    family: str | None = None
+    
 
 
 class RecallCutoffFromTableRequest(BaseModel):
@@ -79,7 +81,6 @@ class ClusteringThresholdResult(BaseModel):
 
 class CompositionStopTraversalRequest(BaseModel):
     model: str = "xgb"
-    tax_level: str = "order"
     features: dict[str, float] = Field(
         ...,
         description="Feature dict — keys matching training column names, values are feature values at the node",
