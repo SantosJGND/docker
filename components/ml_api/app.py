@@ -5,7 +5,7 @@ import pandas as pd
 from config import get_logger, registry_name
 from fastapi import FastAPI, HTTPException, Response
 from monitoring import log_prediction
-from registry import all_model_keys, cache_status, discover_models, get_cached_model, invalidate_cache, load_and_cache
+from registry import all_model_keys, cache_status, get_cached_model, invalidate_cache, load_and_cache
 from validation.schemas import (
     CompositionStopTraversalRequest,
     CompositionStopTraversalResult,
