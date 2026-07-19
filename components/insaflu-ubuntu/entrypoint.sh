@@ -186,7 +186,7 @@ if [ "$1" = "init_all" ]; then
     
     ## for televir
     echo "--->  Set up TELEVIR software  ..."
-    if [ -e /opt/televir/utility_docker.db ]; then
+    if [ -e /opt/televir/utility_local.db ]; then
         #/usr/bin/python3 manage.py register_references_on_file -o /tmp/insaFlu/register
         cd /data/tmp/ && cp /insaflu_web/commands/register_televir_refs.sh . && gosu flu_user sbatch register_televir_refs.sh
         cd /insaflu_web/INSaFLU;
