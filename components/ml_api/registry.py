@@ -40,6 +40,7 @@ def discover_models():
     GENUS_ALIASES = {"genus", "g", "genera"}
 
     for p in sorted(MODELS_DIR.iterdir()):
+        print(f"Checking {p.name}...")
         if p.suffix not in (".pkl",):
             continue
         try:

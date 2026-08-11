@@ -301,9 +301,7 @@ services:
       - MLFLOW_EXPERIMENT=INSaFLU_ML_API
 
     volumes:
-      - ./logs:/app/logs
-      - ./data:/app/data
-      - mlflow_artifacts:/mlartifacts
+      - ./components/ml_api/models:/app/models 
     
     networks:
       - slurm-network
